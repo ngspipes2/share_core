@@ -42,9 +42,9 @@ public class ToolsRepository {
     public void setOwner(User owner) { this.owner = owner; }
 
     @ManyToMany(targetEntity = Group.class, fetch = FetchType.EAGER)
-    private Collection<Group> groupAccess;
-    public Collection<Group> getGroupAccess() { return groupAccess; }
-    public void setGroupAccess(Collection<Group> groupAccess) { this.groupAccess = groupAccess; }
+    private Collection<Group> groupsAccess;
+    public Collection<Group> getGroupsAccess() { return groupsAccess; }
+    public void setGroupsAccess(Collection<Group> groupsAccess) { this.groupsAccess = groupsAccess; }
 
     @ManyToMany(targetEntity = User.class, fetch = FetchType.EAGER)
     private Collection<User> usersAccess;
@@ -60,7 +60,7 @@ public class ToolsRepository {
         this.creationDate = creationDate;
         this.isPublic = isPublic;
         this.owner = owner;
-        this.groupAccess = groupAccess;
+        this.groupsAccess = groupAccess;
         this.usersAccess = usersAccess;
     }
 

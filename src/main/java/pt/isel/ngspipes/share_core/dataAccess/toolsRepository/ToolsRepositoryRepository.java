@@ -35,7 +35,7 @@ public class ToolsRepositoryRepository extends PostgresRepository<ToolsRepositor
         repositoryToUpdate.setCreationDate(repository.getCreationDate());
         repositoryToUpdate.setPublic(repository.isPublic());
         repositoryToUpdate.setOwner(repository.getOwner());
-        repositoryToUpdate.setGroupAccess(repository.getGroupAccess());
+        repositoryToUpdate.setGroupsAccess(repository.getGroupsAccess());
         repositoryToUpdate.setUsersAccess(repository.getUsersAccess());
     }
 

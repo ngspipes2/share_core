@@ -35,7 +35,7 @@ public class PipelinesRepositoryRepository extends PostgresRepository<PipelinesR
         repositoryToUpdate.setCreationDate(repository.getCreationDate());
         repositoryToUpdate.setPublic(repository.isPublic());
         repositoryToUpdate.setOwner(repository.getOwner());
-        repositoryToUpdate.setGroupAccess(repository.getGroupAccess());
+        repositoryToUpdate.setGroupsAccess(repository.getGroupsAccess());
         repositoryToUpdate.setUsersAccess(repository.getUsersAccess());
     }
 
