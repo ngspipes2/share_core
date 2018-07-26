@@ -6,11 +6,13 @@ import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
 
 @Repository
+@Transactional
 public abstract class PostgresRepository<T, K extends Serializable> implements IRepository<T, K> {
 
     protected Class<T> klass;
