@@ -1,5 +1,7 @@
 package pt.isel.ngspipes.share_core.logic.domain;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -41,12 +43,14 @@ public class ToolsRepository {
     public User getOwner() { return owner; }
     public void setOwner(User owner) { this.owner = owner; }
 
-    @ManyToMany(targetEntity = Group.class, fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(targetEntity = Group.class)
     private Collection<Group> groupsAccess;
     public Collection<Group> getGroupsAccess() { return groupsAccess; }
     public void setGroupsAccess(Collection<Group> groupsAccess) { this.groupsAccess = groupsAccess; }
 
-    @ManyToMany(targetEntity = User.class, fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(targetEntity = User.class)
     private Collection<User> usersAccess;
     public Collection<User> getUsersAccess() { return usersAccess; }
     public void setUsersAccess(Collection<User> usersAccess) { this.usersAccess = usersAccess; }
