@@ -34,9 +34,9 @@ public class User {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    private String gravatarEmail;
-    public String getGravatarEmail() { return gravatarEmail; }
-    public void setGravatarEmail(String gravatarEmail) { this.gravatarEmail = gravatarEmail; }
+    private String name;
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     @NotNull
     private Date creationDate;
@@ -51,11 +51,11 @@ public class User {
 
 
 
-    public User(String userName, String password, String email, String gravatarEmail, Date creationDate, Role role) {
+    public User(String userName, String password, String email, String name, Date creationDate, Role role) {
         this.userName = userName;
         this.password = password;
         this.email = email;
-        this.gravatarEmail = gravatarEmail;
+        this.name = name;
         this.creationDate = creationDate;
         this.role = role;
     }

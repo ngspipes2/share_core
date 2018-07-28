@@ -28,7 +28,7 @@ public class UserRepository extends PostgresRepository<User, String> {
         userToUpdate.setUserName(user.getUserName());
         userToUpdate.setPassword(user.getPassword());
         userToUpdate.setEmail(user.getEmail());
-        userToUpdate.setGravatarEmail(user.getGravatarEmail());
+        userToUpdate.setName(user.getName());
         userToUpdate.setCreationDate(user.getCreationDate());
         userToUpdate.setRole(user.getRole());
     }
