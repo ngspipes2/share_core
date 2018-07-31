@@ -14,7 +14,7 @@ import java.util.Collection;
 public abstract class Service<T, K> implements IService<T, K> {
 
     @Autowired
-    private IRepository<T, K> repository;
+    protected IRepository<T, K> repository;
     private String entitiesName;
     private String entityName;
 

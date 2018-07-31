@@ -3,6 +3,7 @@ package pt.isel.ngspipes.share_core.logic.service.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+import pt.isel.ngspipes.share_core.dataAccess.RepositoryException;
 import pt.isel.ngspipes.share_core.logic.domain.User;
 import pt.isel.ngspipes.share_core.logic.service.Service;
 import pt.isel.ngspipes.share_core.logic.service.ServiceUtils;
@@ -11,7 +12,7 @@ import pt.isel.ngspipes.share_core.logic.service.exceptions.ServiceException;
 import java.util.Date;
 
 @org.springframework.stereotype.Service
-public class UserService extends Service<User, String> {
+public class UserService extends Service<User, String> implements IUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -33,13 +34,6 @@ public class UserService extends Service<User, String> {
     }
 
     @Override
-    @Transactional
-    public void update(User user) throws ServiceException {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        super.update(user);
-    }
-
-    @Override
     protected void validateInsert(User user) throws ServiceException { }
 
     @Override
@@ -55,12 +49,34 @@ public class UserService extends Service<User, String> {
 
             if(!savedUser.getRole().equals(user.getRole()))
                 throw new ServiceException("User's role cannot be changed!");
+
+            if(!passwordEncoder.matches(user.getPassword(), savedUser.getPassword()))
+                throw new ServiceException("User's password must be changed through changePassword operation!");
         }
     }
 
     @Override
     protected String getId(User user) throws ServiceException {
         return user.getUserName();
+    }
+
+    @Override
+    public void changePassword(String userName, String currentPassword, String newPassword) throws ServiceException {
+        User user = getById(userName);
+
+        if(user == null)
+            throw new ServiceException("There is no user with userName '" + userName + "'!");
+
+        if(!passwordEncoder.matches(currentPassword, user.getPassword()))
+            throw new ServiceException("Invalid currentPassword!");
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+
+        try {
+            super.repository.update(user);
+        } catch (RepositoryException e) {
+            throw new ServiceException("Error changing password!", e);
+        }
     }
 
 }
