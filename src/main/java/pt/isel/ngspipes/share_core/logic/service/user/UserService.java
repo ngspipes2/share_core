@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ngspipes.share_core.dataAccess.RepositoryException;
+import pt.isel.ngspipes.share_core.dataAccess.user.IUserRepository;
 import pt.isel.ngspipes.share_core.logic.domain.User;
 import pt.isel.ngspipes.share_core.logic.service.Service;
 import pt.isel.ngspipes.share_core.logic.service.ServiceUtils;
 import pt.isel.ngspipes.share_core.logic.service.exceptions.ServiceException;
 
+import java.util.Collection;
 import java.util.Date;
 
 @org.springframework.stereotype.Service
@@ -16,6 +18,9 @@ public class UserService extends Service<User, String> implements IUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private IUserRepository repository;
 
 
 
@@ -88,6 +93,15 @@ public class UserService extends Service<User, String> implements IUserService {
             super.repository.update(user);
         } catch (RepositoryException e) {
             throw new ServiceException("Error changing password!", e);
+        }
+    }
+
+    @Override
+    public Collection<String> getUsersNames() throws ServiceException {
+        try {
+            return repository.getUsersNames();
+        } catch (RepositoryException e) {
+            throw new ServiceException("Error getting users names!", e);
         }
     }
 

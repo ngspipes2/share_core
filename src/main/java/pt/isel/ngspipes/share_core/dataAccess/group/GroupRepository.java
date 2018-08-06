@@ -1,5 +1,8 @@
 package pt.isel.ngspipes.share_core.dataAccess.group;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.springframework.stereotype.Repository;
 import pt.isel.ngspipes.share_core.dataAccess.PostgresRepository;
 import pt.isel.ngspipes.share_core.dataAccess.RepositoryException;
@@ -48,6 +51,15 @@ public class GroupRepository extends PostgresRepository<Group, String> implement
             Collection<User> users = group.getMembers();
             return users.stream().anyMatch((user)->user.getUserName().equals(userName));
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<String> getGroupsNames() throws RepositoryException {
+        Session session = this.hibernateTemplate.getSessionFactory().getCurrentSession();
+        Criteria criteria = session.createCriteria(Group.class);
+        criteria.setProjection(Projections.projectionList().add(Projections.property("groupName")));
+
+        return criteria.list();
     }
 
 }

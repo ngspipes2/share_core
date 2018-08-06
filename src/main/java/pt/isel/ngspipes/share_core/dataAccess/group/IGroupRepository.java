@@ -12,4 +12,6 @@ public interface IGroupRepository extends IRepository<Group, String> {
 
     Collection<Group> getGroupsWithMember(String userName) throws RepositoryException;
 
+    Collection<String> getGroupsNames() throws RepositoryException;
+
 }

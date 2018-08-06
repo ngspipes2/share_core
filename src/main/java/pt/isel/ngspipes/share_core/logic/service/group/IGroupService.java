@@ -12,4 +12,6 @@ public interface IGroupService extends IService<Group, String> {
 
     Collection<Group> getGroupsWithMember(String userName) throws ServiceException;
 
+    Collection<String> getGroupsNames() throws ServiceException;
+
 }

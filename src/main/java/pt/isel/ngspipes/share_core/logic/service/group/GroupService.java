@@ -29,6 +29,7 @@ public class GroupService extends Service<Group, String> implements IGroupServic
     }
 
 
+
     @Override
     @Transactional
     public void insert(Group group) throws ServiceException {
@@ -77,6 +78,15 @@ public class GroupService extends Service<Group, String> implements IGroupServic
             return repository.getGroupsWithMember(userName);
         } catch (RepositoryException e) {
             throw new ServiceException("Error getting groups where User is member!", e);
+        }
+    }
+
+    @Override
+    public Collection<String> getGroupsNames() throws ServiceException {
+        try {
+            return repository.getGroupsNames();
+        } catch(RepositoryException e) {
+            throw new ServiceException("Error getting groups names!", e);
         }
     }
 
