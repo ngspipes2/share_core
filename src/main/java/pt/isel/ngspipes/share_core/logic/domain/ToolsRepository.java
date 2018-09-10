@@ -35,7 +35,7 @@ public class ToolsRepository {
     public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
 
     private boolean isPublic;
-    public boolean isPublic() { return isPublic; }
+    public boolean getIsPublic() { return isPublic; }
     public void setPublic(boolean aPublic) { isPublic = aPublic; }
 
     @ManyToOne(targetEntity = User.class, optional = false, fetch = FetchType.EAGER)
