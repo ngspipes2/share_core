@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class ServiceUtils {
 
-    public static boolean sameCreationDate(Date savedCreationDate, Date newCreationDate) {
+    public static boolean sameDate(Date savedCreationDate, Date newCreationDate) {
         Calendar savedCalendar = Calendar.getInstance();
         savedCalendar.setTime(savedCreationDate);
 
