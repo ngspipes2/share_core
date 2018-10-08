@@ -1,4 +1,4 @@
-package pt.isel.ngspipes.share_core.logic.service;
+package pt.isel.ngspipes.share_core.logic.service.authentication;
 
 import org.springframework.stereotype.Service;
 

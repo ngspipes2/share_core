@@ -9,7 +9,7 @@ import org.springframework.security.authentication.event.AuthenticationFailureBa
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
-import pt.isel.ngspipes.share_core.logic.service.AuthenticationService;
+import pt.isel.ngspipes.share_core.logic.service.authentication.AuthenticationService;
 
 import javax.naming.AuthenticationException;
 
