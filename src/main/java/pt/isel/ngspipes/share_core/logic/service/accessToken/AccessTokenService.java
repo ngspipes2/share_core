@@ -28,7 +28,7 @@ public class AccessTokenService extends Service<AccessToken, Integer> implements
 
 
 
-    protected AccessTokenService() {
+    public AccessTokenService() {
         super("AccessTokens", "AccessToken");
     }
 

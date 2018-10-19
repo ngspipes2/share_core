@@ -21,7 +21,7 @@ public class GroupMemberService extends Service<GroupMember, Integer> implements
 
 
 
-    protected GroupMemberService() {
+    public GroupMemberService() {
         super("GroupMembers", "GroupMember");
     }
 

@@ -24,7 +24,7 @@ public class GroupService extends Service<Group, String> implements IGroupServic
 
 
 
-    protected GroupService() {
+    public GroupService() {
         super("Groups", "Group");
     }
 
