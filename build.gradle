@@ -32,6 +32,4 @@ dependencies {
     compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.133'
 
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
-
-    compile project(":dsl_core")
 }
