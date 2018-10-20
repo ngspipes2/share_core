@@ -35,7 +35,11 @@ public class GroupMemberService extends Service<GroupMember, Integer> implements
     }
 
     @Override
-    protected void validateInsert(GroupMember member) throws ServiceException { }
+    protected void validateInsert(GroupMember member) throws ServiceException {
+        for(GroupMember userMember : getMembersOfGroup(member.getGroup().getGroupName()))
+            if(userMember.getUser().getUserName().equals(member.getUser().getUserName()))
+                throw new ServiceException("User " + member.getUser().getUserName() + " is already member of Group " + member.getGroup().getGroupName() + "!");
+    }
 
     @Override
     protected void validateDelete(Integer id) throws ServiceException { }
