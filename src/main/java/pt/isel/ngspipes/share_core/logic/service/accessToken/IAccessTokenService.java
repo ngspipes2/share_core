@@ -9,6 +9,6 @@ import java.util.Collection;
 public interface IAccessTokenService extends IService<AccessToken, Integer> {
 
     Collection<AccessToken> getTokensOfUser(String userName) throws ServiceException;
-    AccessToken getTokensByToken(String token) throws ServiceException;
+    AccessToken getAccessTokenByToken(String token) throws ServiceException;
 
 }
