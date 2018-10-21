@@ -14,7 +14,7 @@ import pt.isel.ngspipes.share_core.logic.service.authentication.AuthenticationSe
 import javax.naming.AuthenticationException;
 
 @Component
-public class AuthenticationFilter {
+public class AuthenticationResultFilter {
 
     @Component
     public static class AuthenticationEventListener {
