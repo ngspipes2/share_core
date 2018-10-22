@@ -93,4 +93,14 @@ public class AccessTokenService extends Service<AccessToken, Integer> implements
         }
     }
 
+    @Override
+    @Transactional
+    public void deleteTokensOfUser(String userName) throws ServiceException {
+        try {
+            repository.deleteTokensOfUser(userName);
+        } catch (RepositoryException e) {
+            throw new ServiceException("Error deleting tokens of user:" + userName + "!", e);
+        }
+    }
+
 }

@@ -52,4 +52,9 @@ public class GroupRepository extends PostgresRepository<Group, String> implement
         return criteria.list();
     }
 
+    @Override
+    public void deleteGroupsOfUser(String userName) throws RepositoryException {
+        super.hibernateTemplate.deleteAll(getGroupsOfUser(userName));
+    }
+
 }

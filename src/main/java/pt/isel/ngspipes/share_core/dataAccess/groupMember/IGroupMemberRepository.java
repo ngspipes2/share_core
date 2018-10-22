@@ -9,7 +9,8 @@ import java.util.Collection;
 public interface IGroupMemberRepository extends IRepository<GroupMember, Integer> {
 
     Collection<GroupMember> getMembersWithUser(String userName) throws RepositoryException;
-
     Collection<GroupMember> getMembersOfGroup(String groupName) throws RepositoryException;
+    void deleteMembersWithUser(String userName) throws RepositoryException;
+    void deleteMembersOfGroup(String groupName) throws RepositoryException;
 
 }

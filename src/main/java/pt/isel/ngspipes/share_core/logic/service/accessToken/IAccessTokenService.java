@@ -10,5 +10,6 @@ public interface IAccessTokenService extends IService<AccessToken, Integer> {
 
     Collection<AccessToken> getTokensOfUser(String userName) throws ServiceException;
     AccessToken getAccessTokenByToken(String token) throws ServiceException;
+    void deleteTokensOfUser(String userName) throws ServiceException;
 
 }

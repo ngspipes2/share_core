@@ -120,4 +120,18 @@ public class GroupService extends Service<Group, String> implements IGroupServic
             imageService.update(image);
     }
 
+    @Override
+    @Transactional
+    public void deleteGroupsOfUser(String userName) throws ServiceException {
+        try {
+            for(Group group : repository.getGroupsOfUser(userName))
+                if(imageService.getById(IMAGE_PREFIX + group.getGroupName()) != null)
+                    imageService.delete(IMAGE_PREFIX + group.getGroupName());
+
+            repository.deleteGroupsOfUser(userName);
+        } catch (RepositoryException e) {
+            throw new ServiceException("Error deleting groups of user:" + userName + "!", e);
+        }
+    }
+
 }

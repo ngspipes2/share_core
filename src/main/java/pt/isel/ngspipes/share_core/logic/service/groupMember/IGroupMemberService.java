@@ -13,4 +13,8 @@ public interface IGroupMemberService extends IService<GroupMember, Integer> {
 
     Collection<GroupMember> getMembersOfGroup(String groupName) throws ServiceException;
 
+    void deleteMembersWithUser(String userName) throws ServiceException;
+
+    void deleteMembersOfGroup(String groupName) throws ServiceException;
+
 }

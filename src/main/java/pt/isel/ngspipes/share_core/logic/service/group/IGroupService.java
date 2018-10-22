@@ -18,4 +18,6 @@ public interface IGroupService extends IService<Group, String> {
 
     void setGroupImage(String groupName, Image image) throws ServiceException;
 
+    void deleteGroupsOfUser(String userName) throws ServiceException;
+
 }

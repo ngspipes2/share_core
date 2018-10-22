@@ -83,4 +83,24 @@ public class GroupMemberService extends Service<GroupMember, Integer> implements
         }
     }
 
+    @Override
+    @Transactional
+    public void deleteMembersWithUser(String userName) throws ServiceException {
+        try {
+            repository.deleteMembersWithUser(userName);
+        } catch (RepositoryException e) {
+            throw new ServiceException("Error deleting members with user:" + userName + "!", e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteMembersOfGroup(String groupName) throws ServiceException {
+        try {
+            repository.deleteMembersOfGroup(groupName);
+        } catch (RepositoryException e) {
+            throw new ServiceException("Error deleting members of group:" + groupName + "!", e);
+        }
+    }
+
 }

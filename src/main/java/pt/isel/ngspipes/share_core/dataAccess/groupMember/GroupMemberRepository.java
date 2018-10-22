@@ -46,4 +46,14 @@ public class GroupMemberRepository extends PostgresRepository<GroupMember, Integ
         return getAll().stream().filter((member) -> member.getGroup().getGroupName().equals(groupName)).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteMembersWithUser(String userName) throws RepositoryException {
+        super.hibernateTemplate.deleteAll(getMembersWithUser(userName));
+    }
+
+    @Override
+    public void deleteMembersOfGroup(String groupName) throws RepositoryException {
+        super.hibernateTemplate.deleteAll(getMembersOfGroup(groupName));
+    }
+
 }

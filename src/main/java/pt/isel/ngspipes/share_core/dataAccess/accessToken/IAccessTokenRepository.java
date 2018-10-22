@@ -10,5 +10,6 @@ public interface IAccessTokenRepository extends IRepository<AccessToken, Integer
 
     Collection<AccessToken> getTokensOfUser(String userName) throws RepositoryException;
     AccessToken getByToken(String token) throws RepositoryException;
+    void deleteTokensOfUser(String userName) throws RepositoryException;
 
 }
