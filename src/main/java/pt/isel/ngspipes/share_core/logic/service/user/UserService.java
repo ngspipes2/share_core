@@ -5,9 +5,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ngspipes.share_core.dataAccess.RepositoryException;
 import pt.isel.ngspipes.share_core.dataAccess.user.IUserRepository;
+import pt.isel.ngspipes.share_core.logic.domain.Image;
 import pt.isel.ngspipes.share_core.logic.domain.User;
+import pt.isel.ngspipes.share_core.logic.service.IService;
 import pt.isel.ngspipes.share_core.logic.service.Service;
 import pt.isel.ngspipes.share_core.logic.service.ServiceUtils;
+import pt.isel.ngspipes.share_core.logic.service.exceptions.NonExistentEntityException;
 import pt.isel.ngspipes.share_core.logic.service.exceptions.ServiceException;
 
 import java.util.Collection;
@@ -16,11 +19,16 @@ import java.util.Date;
 @org.springframework.stereotype.Service
 public class UserService extends Service<User, String> implements IUserService {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private static final String IMAGE_PREFIX = "User";
+
+
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
     private IUserRepository repository;
+    @Autowired
+    private IService<Image, String> imageService;
 
 
 
@@ -36,6 +44,15 @@ public class UserService extends Service<User, String> implements IUserService {
         user.setCreationDate(new Date());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         super.insert(user);
+    }
+
+    @Override
+    @Transactional
+    public void delete(String userName) throws ServiceException {
+        super.delete(userName);
+
+        if(imageService.getById(IMAGE_PREFIX + userName) != null)
+            imageService.delete(IMAGE_PREFIX + userName);
     }
 
     @Override
@@ -103,6 +120,27 @@ public class UserService extends Service<User, String> implements IUserService {
         } catch (RepositoryException e) {
             throw new ServiceException("Error getting users names!", e);
         }
+    }
+
+    @Override
+    public Image getUserImage(String userName) throws ServiceException {
+        if(getById(userName) == null)
+            return null;
+
+        return imageService.getById(IMAGE_PREFIX + userName);
+    }
+
+    @Override
+    public void setUserImage(String userName, Image image) throws ServiceException {
+        if(getById(userName) == null)
+            throw new NonExistentEntityException("There is no user:" + userName + "!");
+
+        image.setId(IMAGE_PREFIX + userName);
+
+        if(imageService.getById(image.getId()) == null)
+            imageService.insert(image);
+        else
+            imageService.update(image);
     }
 
 }

@@ -6,9 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 import pt.isel.ngspipes.share_core.dataAccess.RepositoryException;
 import pt.isel.ngspipes.share_core.dataAccess.group.IGroupRepository;
 import pt.isel.ngspipes.share_core.logic.domain.Group;
+import pt.isel.ngspipes.share_core.logic.domain.Image;
 import pt.isel.ngspipes.share_core.logic.service.ICurrentUserSupplier;
+import pt.isel.ngspipes.share_core.logic.service.IService;
 import pt.isel.ngspipes.share_core.logic.service.Service;
 import pt.isel.ngspipes.share_core.logic.service.ServiceUtils;
+import pt.isel.ngspipes.share_core.logic.service.exceptions.NonExistentEntityException;
 import pt.isel.ngspipes.share_core.logic.service.exceptions.ServiceException;
 
 import java.util.Collection;
@@ -17,10 +20,16 @@ import java.util.Date;
 @org.springframework.stereotype.Service
 public class GroupService extends Service<Group, String> implements IGroupService {
 
+    private static final String IMAGE_PREFIX = "Group";
+
+
+
     @Autowired
     private IGroupRepository repository;
     @Autowired
     private ICurrentUserSupplier currentUserSupplier;
+    @Autowired
+    private IService<Image, String> imageService;
 
 
 
@@ -37,6 +46,15 @@ public class GroupService extends Service<Group, String> implements IGroupServic
         group.setOwner(currentUserSupplier.get());
 
         super.insert(group);
+    }
+
+    @Override
+    @Transactional
+    public void delete(String groupName) throws ServiceException {
+        super.delete(groupName);
+
+        if(imageService.getById(IMAGE_PREFIX + groupName) != null)
+            imageService.delete(IMAGE_PREFIX + groupName);
     }
 
     @Override
@@ -79,6 +97,27 @@ public class GroupService extends Service<Group, String> implements IGroupServic
         } catch(RepositoryException e) {
             throw new ServiceException("Error getting groups names!", e);
         }
+    }
+
+    @Override
+    public Image getGroupImage(String groupName) throws ServiceException {
+        if(getById(groupName) == null)
+            return null;
+
+        return imageService.getById(IMAGE_PREFIX + groupName);
+    }
+
+    @Override
+    public void setGroupImage(String groupName, Image image) throws ServiceException {
+        if(getById(groupName) == null)
+            throw new NonExistentEntityException("There is no group:" + groupName + "!");
+
+        image.setId(IMAGE_PREFIX + groupName);
+
+        if(imageService.getById(image.getId()) == null)
+            imageService.insert(image);
+        else
+            imageService.update(image);
     }
 
 }
