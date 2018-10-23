@@ -30,7 +30,8 @@ public class AppConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .enableUrlTemplating(true);
     }
 
 }
