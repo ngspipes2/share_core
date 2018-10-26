@@ -94,11 +94,11 @@ public class AccessTokenService extends Service<AccessToken, Integer> implements
 
     @Override
     public AccessToken getAccessTokenByToken(String token) throws ServiceException {
-        try {
-            return repository.getByToken(passwordEncoder.encode(token));
-        } catch (RepositoryException e) {
-            throw new ServiceException("Error getting token by token!", e);
-        }
+        for(AccessToken accessToken : getAll())
+            if(passwordEncoder.matches(token, accessToken.getToken()))
+                return accessToken;
+
+        return null;
     }
 
     @Override

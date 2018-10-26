@@ -45,16 +45,6 @@ public class AccessTokenRepository extends PostgresRepository<AccessToken, Integ
     }
 
     @Override
-    public AccessToken getByToken(String token) throws RepositoryException {
-        Collection<AccessToken> tokens = super.find(Restrictions.eq("token", token));
-
-        if(tokens.isEmpty())
-            return null;
-
-        return tokens.stream().findFirst().get();
-    }
-
-    @Override
     public void deleteTokensOfUser(String userName) throws RepositoryException {
         super.hibernateTemplate.deleteAll(getTokensOfUser(userName));
     }
