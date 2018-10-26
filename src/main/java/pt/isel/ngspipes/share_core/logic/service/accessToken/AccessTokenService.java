@@ -49,6 +49,17 @@ public class AccessTokenService extends Service<AccessToken, Integer> implements
     }
 
     @Override
+    @Transactional
+    public void update(AccessToken token) throws ServiceException {
+        AccessToken savedToken = getById(token.getId());
+
+        if(savedToken != null)
+            token.setToken(savedToken.getToken());
+
+        super.update(token);
+    }
+
+    @Override
     protected void validateInsert(AccessToken token) throws ServiceException { }
 
     @Override
@@ -64,9 +75,6 @@ public class AccessTokenService extends Service<AccessToken, Integer> implements
 
             if(!ServiceUtils.sameDate(token.getCreationDate(), savedToken.getCreationDate()))
                 throw new ServiceException("Token's creationDate cannot be changed!");
-
-            if(!passwordEncoder.matches(token.getToken(), savedToken.getToken()))
-                throw new ServiceException("Token's token cannot be changed!");
         }
     }
 

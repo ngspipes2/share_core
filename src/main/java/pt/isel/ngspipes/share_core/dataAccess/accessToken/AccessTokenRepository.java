@@ -34,6 +34,7 @@ public class AccessTokenRepository extends PostgresRepository<AccessToken, Integ
         tokenToUpdate.setOwner(token.getOwner());
         tokenToUpdate.setToken(token.getToken());
         tokenToUpdate.setCreationDate(token.getCreationDate());
+        tokenToUpdate.setName(token.getName());
         tokenToUpdate.setDescription(token.getDescription());
         tokenToUpdate.setWriteAccess(token.getWriteAccess());
     }

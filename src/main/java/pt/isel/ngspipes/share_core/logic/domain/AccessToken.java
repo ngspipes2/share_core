@@ -1,5 +1,7 @@
 package pt.isel.ngspipes.share_core.logic.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -28,6 +30,12 @@ public class AccessToken {
     public Date getCreationDate() { return creationDate; }
     public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
 
+    @NotNull
+    @NotEmpty
+    private String name;
+    public String getName() { return this.name; }
+    public void setName(String name) { this.name = name; }
+
     private String description;
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
@@ -38,11 +46,12 @@ public class AccessToken {
 
 
 
-    public AccessToken(int id, User owner, String token, Date creationDate, String description, boolean writeAccess) {
+    public AccessToken(int id, User owner, String token, Date creationDate, String name, String description, boolean writeAccess) {
         this.id = id;
         this.owner = owner;
         this.token = token;
         this.creationDate = creationDate;
+        this.name = name;
         this.description = description;
         this.writeAccess = writeAccess;
     }
