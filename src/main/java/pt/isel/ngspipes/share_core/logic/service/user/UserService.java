@@ -60,12 +60,8 @@ public class UserService extends Service<User, String> implements IUserService {
     public void update(User user) throws ServiceException {
         User savedUser = getById(user.getUserName());
 
-        if(savedUser != null) {
-            if(!passwordEncoder.matches(user.getPassword(), savedUser.getPassword()))
-                throw new ServiceException("User's password must be changed through changePassword operation!");
-
+        if(savedUser != null)
             user.setPassword(savedUser.getPassword());
-        }
 
         super.update(user);
     }
