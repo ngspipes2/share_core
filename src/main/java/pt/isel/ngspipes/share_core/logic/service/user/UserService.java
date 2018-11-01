@@ -67,7 +67,11 @@ public class UserService extends Service<User, String> implements IUserService {
     }
 
     @Override
-    protected void validateInsert(User user) throws ServiceException { }
+    protected void validateInsert(User user) throws ServiceException {
+        String acceptedCharactersRegex = "[a-zA-Z0-9\\-_]+";
+        if(!user.getUserName().matches(acceptedCharactersRegex))
+            throw new ServiceException("UserName can only contain these characters " + acceptedCharactersRegex);
+    }
 
     @Override
     protected void validateDelete(String userName) throws ServiceException { }

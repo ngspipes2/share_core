@@ -58,7 +58,11 @@ public class GroupService extends Service<Group, String> implements IGroupServic
     }
 
     @Override
-    protected void validateInsert(Group group) throws ServiceException { }
+    protected void validateInsert(Group group) throws ServiceException {
+        String acceptedCharactersRegex = "[a-zA-Z0-9\\-_]+";
+        if(!group.getGroupName().matches(acceptedCharactersRegex))
+            throw new ServiceException("GroupName can only contain these characters " + acceptedCharactersRegex);
+    }
 
     @Override
     protected void validateDelete(String key) throws ServiceException { }
