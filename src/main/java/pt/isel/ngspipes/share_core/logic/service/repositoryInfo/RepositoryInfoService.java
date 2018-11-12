@@ -105,7 +105,8 @@ public class RepositoryInfoService extends Service<RepositoryInfo, String> imple
     public void deleteRepositoriesOfUser(String userName) throws ServiceException {
         try {
             for(RepositoryInfo repo : repositoryInfoRepository.getRepositoriesOfUser(userName))
-                repositoryService.deleteRepository(repo);
+                if(repo.getLocationType().equals(RepositoryInfo.LocationType.INTERNAL))
+                    repositoryService.deleteRepository(repo);
 
             repositoryInfoRepository.deleteRepositoriesOfUser(userName);
         } catch (RepositoryException e) {
