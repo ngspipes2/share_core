@@ -83,6 +83,9 @@ public class RepositoryInfoService extends Service<RepositoryInfo, String> imple
 
             if(!savedRepository.getLocationType().equals(repository.getLocationType()))
                 throw new ServiceException("RepositoryInfo's location type cannot be changed!");
+
+            if(savedRepository.getLocationType().equals(RepositoryInfo.LocationType.INTERNAL) && !savedRepository.getLocation().equals(repository.getLocation()))
+                throw new ServiceException("Location of internal repositories cannot be changed!");
         }
     }
 
