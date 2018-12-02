@@ -10,6 +10,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import pt.isel.ngspipes.share_core.dataAccess.IRepository;
 import pt.isel.ngspipes.share_core.dataAccess.RepositoryException;
@@ -26,6 +27,9 @@ public class ImageRepository implements IRepository<Image, String> {
 
     @Autowired
     private AmazonData amazonData;
+
+    @Value("${imageMaximumBytesSize}")
+    private int maximumImageSize;
 
 
 
@@ -49,6 +53,9 @@ public class ImageRepository implements IRepository<Image, String> {
 
     @Override
     public void insert(Image image) throws RepositoryException {
+        if(image.getContent().length >= maximumImageSize)
+            throw new RepositoryException("Image exceeds maximum size of " + maximumImageSize + " bytes!");
+
         AmazonS3 client = getClient();
 
         File file = createFile(image.getId(), image.getContent());
