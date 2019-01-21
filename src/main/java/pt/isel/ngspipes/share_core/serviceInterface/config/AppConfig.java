@@ -1,11 +1,9 @@
 package pt.isel.ngspipes.share_core.serviceInterface.config;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -17,14 +15,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class AppConfig {
-
-    @Bean
-    public PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer() {
-        PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-        ppc.setLocation(new ClassPathResource("application.properties"));
-        ppc.setIgnoreUnresolvablePlaceholders(true);
-        return ppc;
-    }
 
     @Bean
     public Docket api() {
