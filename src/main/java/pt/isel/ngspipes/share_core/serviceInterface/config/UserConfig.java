@@ -32,7 +32,7 @@ public class UserConfig {
     @Bean
     @Transactional
     public boolean createAdmin() throws ServiceException {
-        if(userService.getById("Admin") == null) {
+        if(userService.getById(adminUserName) == null) {
             User user = createUser();
 
             userService.insert(user);
