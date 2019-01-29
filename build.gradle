@@ -27,7 +27,7 @@ dependencies {
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
 
-    compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
 
     compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.133'
 
